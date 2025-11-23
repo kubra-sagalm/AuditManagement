@@ -34,7 +34,7 @@ public class AuditLog {
 
     private Long entityId;
 
-    @Lob
+    @Column(name = "description")
     private String description;
 
     @Column(length = 50)

@@ -8,6 +8,7 @@ import com.example.AuditManagement.Service.TaskChecklistService;
 import com.example.AuditManagement.Service.TaskService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 
@@ -141,7 +142,7 @@ public class TaskController {
     @PreAuthorize("hasAnyRole('ADMIN','TEAM_MEMBER')")
     public ResponseEntity<ChecklistItemStatusResponse> updateChecklistItem(
             @PathVariable Long taskId,
-            @RequestBody @Valid ChecklistItemStatusUpdateRequest request
+            @RequestBody @Valid ChecklistItemStatusUpdateRequest request, HttpServletRequest httpRequest
     ) {
         Long currentUserId = getCurrentUserId();
 
@@ -151,7 +152,7 @@ public class TaskController {
                 .anyMatch(a -> a.equals("ROLE_ADMIN"));
 
         ChecklistItemStatusResponse dto =
-                taskChecklistService.updateItemStatus(taskId, currentUserId, isAdmin, request);
+                taskChecklistService.updateItemStatus(taskId, currentUserId, isAdmin, request, httpRequest);
 
         return ResponseEntity.ok(dto);
     }

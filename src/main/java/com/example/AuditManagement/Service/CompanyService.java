@@ -91,6 +91,7 @@ public class CompanyService {
                 .toList();
     }
 
+
     public CompanyResponse updateCompanyStatus(Long companyId, Company.CompanyStatus status) {
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new RuntimeException("Company not found with id: " + companyId));
